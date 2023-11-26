@@ -4,7 +4,10 @@ import Entities.Employe;
 import Entities.SocieteArrayList;
 import Entities.Departement;
 import Entities.DepartementHashSet;
+import Entities.AffectationHashMap;
 
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Main {
@@ -89,5 +92,50 @@ public class Main {
         for (Departement dep : departementsTries) {
             System.out.println(dep);
         }
+        //*********************************Prosit 11*****************************************************************
+        System.out.println("////////////////////prosit-11/////////////////////");
+        AffectationHashMap affectationMap = new AffectationHashMap();
+
+        // Affectation des employés aux départements
+        affectationMap.ajouterEmployeDepartement(emp1, dep1);
+        affectationMap.ajouterEmployeDepartement(emp2, dep2);
+
+        // Affichage des employés et départements
+        affectationMap.afficherEmployesEtDepartements();
+
+        // Ajout du même employé à un autre département
+        affectationMap.ajouterEmployeDepartement(emp1, dep2);
+
+        // Affichage mis à jour
+        affectationMap.afficherEmployesEtDepartements();
+
+        // Suppression d'un employé
+        //affectationMap.supprimerEmploye(emp1);
+
+        // Affichage mis à jour après la suppression
+        //affectationMap.afficherEmployesEtDepartements();
+
+        // Suppression d'un employé dans un département spécifique
+        //affectationMap.supprimerEmployeEtDepartement(emp2, dep2);
+
+        // Affichage mis à jour après la suppression
+        //affectationMap.afficherEmployesEtDepartements();
+
+        // Affichage de la liste des employés
+        affectationMap.afficherEmployes();
+
+        // Affichage de la liste des départements
+        affectationMap.afficherDepartements();
+
+        System.out.println("Recherche de l'employé 3 : " + affectationMap.rechercherEmploye(emp1));
+        System.out.println("Recherche du département 1 : " + affectationMap.rechercherDepartement(dep1));
+
+        // Tri de la collection et affichage
+        TreeMap<Employe, Departement> employesTries = affectationMap.trierMap();
+        System.out.println("Liste des employés triés par identifiant :");
+        for (Map.Entry<Employe, Departement> entry : employesTries.entrySet()) {
+            System.out.println(entry.getKey().getId() + ": " + entry.getKey().getNom());
+        }
+
     }
 }
