@@ -48,5 +48,8 @@ public class Employe {
                 '}';
     }
 
+    public int hachcode(){
+        return  nom.hashCode()* 33 *id+id *nom_ddepartement.hashCode();
+    }
 
 }

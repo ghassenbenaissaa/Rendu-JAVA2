@@ -1,22 +1,15 @@
 package Entities;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class AffectationHashMap {
-    private final Map<Employe, Departement> affectations;
-
-    public AffectationHashMap() {
-        affectations = new HashMap<>();
-    }
+    private final Map<Employe, Departement> affectations = new HashMap<>();
 
     public void ajouterEmployeDepartement(Employe e, Departement d) {
-        if (!affectations.containsKey(e)) {
-            affectations.put(e, d);
-        } else {
-            System.out.println("L'employé est déjà affecté à un département.");
-        }
+        affectations.put(e,d);
     }
 
     public void afficherEmployesEtDepartements() {
@@ -28,35 +21,27 @@ public class AffectationHashMap {
     }
 
     public void supprimerEmploye(Employe e) {
-        if (affectations.containsKey(e)) {
             affectations.remove(e);
-            System.out.println("L'employé " + e.getNom() + " a été supprimé de la collection.");
-        } else {
-            System.out.println("L'employé " + e.getNom() + " n'a pas été trouvé dans la collection.");
-        }
     }
 
     public void supprimerEmployeEtDepartement(Employe e, Departement d) {
-        if (affectations.containsKey(e) && affectations.get(e).equals(d)) {
-            affectations.remove(e);
-            System.out.println("L'employé " + e.getNom() + " a été supprimé du département " +
-                    d.getNomdepartement() + " dans la collection.");
-        } else {
-            System.out.println("L'association employé-département n'a pas été trouvée dans la collection.");
+        Departement dep = affectations.get(e);
+        if (dep.equals(d)){
+            supprimerEmploye(e);
         }
     }
 
     public void afficherEmployes() {
         System.out.println("Liste des employés :");
         for (Employe e : affectations.keySet()) {
-            System.out.println(e.getNom());
+            System.out.println(e);
         }
     }
 
     public void afficherDepartements() {
         System.out.println("Liste des départements :");
         for (Departement d : affectations.values()) {
-            System.out.println(d.getNomdepartement());
+            System.out.println(d);
         }
     }
 
@@ -64,13 +49,20 @@ public class AffectationHashMap {
         return affectations.containsKey(e);
     }
 
-    public boolean rechercherDepartement(Departement departement) {
-        return affectations.containsValue(departement);
+    public boolean rechercherDepartement(Departement d) {
+        return affectations.containsValue(d);
     }
 
     public TreeMap<Employe, Departement> trierMap() {
-        TreeMap<Employe, Departement> treeMap = new TreeMap<>((e1, e2) -> Integer.compare(e1.getId(), e2.getId()));
-        treeMap.putAll(affectations);
-        return treeMap;
+        // Comparator<Employe> idCompator =new Comparator<Employe>() {
+        //    @Override
+        //     public int compare(Employe o1, Employe o2) {
+        //         return 0;
+        //    }
+        // };
+        //TreeMap<Employe,Departement> myTree = new TreeMap<>(idCompator);
+        // myTree.putAll(affectations);
+        // return myTree;
+        return new TreeMap<>(affectations);
     }
 }
